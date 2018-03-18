@@ -2,18 +2,10 @@ package com.thomazmarcos.runrunittest.network;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.widget.Toast;
 
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.UnknownHostException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -44,6 +36,9 @@ abstract class SuccessCallback<T> extends BaseCallBack<T> implements Callback<T>
 
     RESTfulClient rest = retrofit.create(RESTfulClient.class);
 
+    public SuccessCallback() {
+    }
+
     public SuccessCallback(Activity activity) {
         this.activity = activity;
     }
@@ -71,9 +66,6 @@ abstract class SuccessCallback<T> extends BaseCallBack<T> implements Callback<T>
                 onSuccess(response);
 
                 break;
-            case 422 :
-                onFailureValidation(response);
-                break;
             case HttpURLConnection.HTTP_NOT_FOUND :
             case HttpURLConnection.HTTP_BAD_METHOD :
             case HttpURLConnection.HTTP_INTERNAL_ERROR :
@@ -95,27 +87,27 @@ abstract class SuccessCallback<T> extends BaseCallBack<T> implements Callback<T>
 
     @Override
     public void onFailure(Call<T> call, Throwable t){
-        if( t instanceof UnknownHostException) {
+        /*if( t instanceof UnknownHostException) {
             Toast.makeText(activity, "Sem conexão à internet", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        if( dialog != null ) dialog.dismiss();
+        if( dialog != null ) dialog.dismiss();*/
     }
 
     @Override
     public void onFailure(Response<T> response) {
-        try {
+        /*try {
             Toast.makeText(activity, response.errorBody().string(), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
     public void onFailureValidation(Response<T> response) {
-        try {
+        /*try {
             JSONArray array = new JSONArray(response.errorBody().string());
             if( array.length() > 0 ) {
                 JSONObject object = array.getJSONObject(0);
@@ -124,7 +116,7 @@ abstract class SuccessCallback<T> extends BaseCallBack<T> implements Callback<T>
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 }
