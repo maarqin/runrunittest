@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 
 /**
@@ -15,12 +17,13 @@ import retrofit2.http.Headers;
  */
 public interface RESTfulClient {
 
-    String API_URL = "http://runrun.it/api/v1.0/";
+    String API_URL = "https://runrun.it/api/v1.0/";
 
-    String APP_KEY = "fd234be70940df8fc9b4e686d9aa40ea";
-    String USER_TOKEN = "0l8m2arRft73rLTlsag1";
+    String APP_KEY = "409695a7018dd5c896a8b34b5c402ef4";
+    String USER_TOKEN = "Mq3bvpIKd1ce9EPcxJV";
 
-    // sudataheca@hu4ht.com
+    // thomazmarcos@einrot.com
+    // Mae
 
     @Headers({"App-key: " + APP_KEY, "User-Token: " + USER_TOKEN})
     @GET("users")
@@ -29,6 +32,18 @@ public interface RESTfulClient {
     @Headers({"App-key: " + APP_KEY, "User-Token: " + USER_TOKEN})
     @GET("tasks")
     Call<ArrayList<Task>> allTasks();
+
+    @Headers({"App-key: " + APP_KEY, "User-Token: " + USER_TOKEN})
+    @POST("tasks/{id}/play")
+    Call<Task> playTask(@Path("id") Long id);
+
+    @Headers({"App-key: " + APP_KEY, "User-Token: " + USER_TOKEN})
+    @POST("tasks/{id}/pause")
+    Call<Task> pauseTask(@Path("id") Long id);
+
+    @Headers({"App-key: " + APP_KEY, "User-Token: " + USER_TOKEN})
+    @POST("tasks/{id}/deliver")
+    Call<Task> deliverTask(@Path("id") Long id);
 
 
 }

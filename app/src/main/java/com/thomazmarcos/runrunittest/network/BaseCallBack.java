@@ -9,6 +9,5 @@ abstract class BaseCallBack<T> {
 
     public abstract void onSuccess(Response<T> response);
     public abstract void onFailure(Response<T> response);
-    public abstract void onFailureValidation(Response<T> response);
 
 }

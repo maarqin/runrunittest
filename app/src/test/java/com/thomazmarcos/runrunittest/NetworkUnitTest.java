@@ -24,12 +24,6 @@ public class NetworkUnitTest {
     @Test
     public void testTasks() throws Exception {
 
-        new BaseTaskApi.All() {
-            @Override
-            public void onSuccess(Response<ArrayList<Task>> response) {
-
-            }
-        };
 
     }
 }

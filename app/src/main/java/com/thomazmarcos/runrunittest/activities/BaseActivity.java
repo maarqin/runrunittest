@@ -72,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static void setNewFragment(Fragment fragment, CharSequence title,
                                       FragmentActivity activity, boolean back, Bundle bundle) {
 
-        // Set action bar title
+        // Set endpoint bar title
         activity.setTitle(title);
 
         // Insert the fragment by replacing any existing fragment
