@@ -1,14 +1,16 @@
 package com.thomazmarcos.runrunittest.mvp.tasks;
 
+import android.app.Activity;
+
 import com.thomazmarcos.runrunittest.dto.Task;
 import com.thomazmarcos.runrunittest.network.BaseTaskApi;
-import com.thomazmarcos.runrunittest.network.RESTfulClient;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -50,9 +52,9 @@ public class TaskModelImpl implements TaskModel {
     }
 
     @Override
-    public void update(Long id, BaseTaskApi.Update.UpdateAction<Task> action) {
+    public void update(Activity activity, Long id, BaseTaskApi.Update.UpdateAction<Task> action) {
 
-        new BaseTaskApi.Update(action, id) {
+        new BaseTaskApi.Update(activity, action, id) {
             @Override
             public void onFailure(Call<Task> call, Throwable t) {
                 //
@@ -61,7 +63,14 @@ public class TaskModelImpl implements TaskModel {
             @Override
             public void onSuccess(Response<Task> response) {
                 realm.beginTransaction();
-                realm.insertOrUpdate(response.body());
+                Task task = response.body();
+
+                if( task.isClosed() ) {
+                    RealmResults<Task> result = realm.where(Task.class).equalTo("id", task.getId()).findAll();
+                    result.deleteAllFromRealm();
+                } else {
+                    realm.insertOrUpdate(response.body());
+                }
                 realm.commitTransaction();
 
                 showAll();

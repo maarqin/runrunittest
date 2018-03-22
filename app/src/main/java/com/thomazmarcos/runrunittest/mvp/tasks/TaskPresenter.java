@@ -1,6 +1,7 @@
 package com.thomazmarcos.runrunittest.mvp.tasks;
 
 import com.thomazmarcos.runrunittest.dto.Task;
+import com.thomazmarcos.runrunittest.network.BaseTaskApi;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface TaskPresenter {
 
     void showAll(List<Task> tasks);
 
-    void update(Task task);
+    void update(Task task, BaseTaskApi.Update.UpdateAction action);
 }

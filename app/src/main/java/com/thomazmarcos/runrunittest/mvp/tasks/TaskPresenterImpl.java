@@ -30,9 +30,7 @@ public class TaskPresenterImpl implements TaskPresenter {
     }
 
     @Override
-    public void update(Task task) {
-
-        taskModel.update(task.getId(),
-                task.IsWorkingOn() ? new BaseTaskApi.Update.Pause() : new BaseTaskApi.Update.Play());
+    public void update(Task task, BaseTaskApi.Update.UpdateAction action) {
+        taskModel.update(taskView.getActivity(), task.getId(), action);
     }
 }

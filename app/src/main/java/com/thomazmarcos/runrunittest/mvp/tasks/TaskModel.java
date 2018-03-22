@@ -1,5 +1,7 @@
 package com.thomazmarcos.runrunittest.mvp.tasks;
 
+import android.app.Activity;
+
 import com.thomazmarcos.runrunittest.dto.Task;
 import com.thomazmarcos.runrunittest.network.BaseTaskApi;
 
@@ -11,5 +13,5 @@ public interface TaskModel {
 
     void all();
 
-    void update(Long id, BaseTaskApi.Update.UpdateAction<Task> action);
+    void update(Activity activity, Long id, BaseTaskApi.Update.UpdateAction<Task> action);
 }

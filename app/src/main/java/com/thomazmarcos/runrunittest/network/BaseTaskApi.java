@@ -1,5 +1,7 @@
 package com.thomazmarcos.runrunittest.network;
 
+import android.app.Activity;
+
 import com.thomazmarcos.runrunittest.dto.Task;
 
 import java.util.ArrayList;
@@ -24,7 +26,9 @@ public class BaseTaskApi {
 
     public abstract static class Update extends SuccessCallback<Task> {
 
-        public Update(UpdateAction<Task> updateAction, Long id) {
+        public Update(Activity activity, UpdateAction<Task> updateAction, Long id) {
+            super(activity, true);
+
             updateAction.endpoint(rest, id).enqueue(this);
         }
 

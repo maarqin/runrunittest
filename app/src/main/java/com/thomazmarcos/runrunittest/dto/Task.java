@@ -278,4 +278,22 @@ public class Task extends RealmObject {
     public Boolean IsWorkingOn() {
         return is_working_on;
     }
+
+    public Boolean isClosed() {
+        return state.equals("closed");
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIs_working_on(Boolean is_working_on) {
+        this.is_working_on = is_working_on;
+    }
+
+
 }
