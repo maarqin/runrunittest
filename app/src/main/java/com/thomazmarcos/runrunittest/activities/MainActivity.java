@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,10 +32,12 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements TaskView, RecyclerItemClickListener.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements TaskView, RecyclerItemClickListener.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.rv_tasks)
     protected RecyclerView rvTasks;
+    @BindView(R.id.sw_main)
+    protected SwipeRefreshLayout swMain;
 
     private TaskPresenter taskPresenter;
 
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements TaskView, Recycle
 
         rvTasks.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rvTasks, this));
 
+        swMain.setOnRefreshListener(this);
+
         setDecorationLine(rvTasks);
 
         taskPresenter = new TaskPresenterImpl(this);
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements TaskView, Recycle
         this.tasks = tasks;
 
         rvTasks.setAdapter(new TaskAdapter(tasks, taskPresenter, this));
+        swMain.setRefreshing(false);
     }
 
     @Override
@@ -100,5 +106,10 @@ public class MainActivity extends AppCompatActivity implements TaskView, Recycle
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onRefresh() {
+        taskPresenter.all();
     }
 }

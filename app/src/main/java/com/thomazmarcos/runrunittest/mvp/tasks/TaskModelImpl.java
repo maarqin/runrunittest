@@ -34,6 +34,8 @@ public class TaskModelImpl implements TaskModel {
 
             @Override
             public void onFailure(Call<ArrayList<Task>> call, Throwable t) {
+                super.onFailure(call, t);
+
                 if( t instanceof UnknownHostException ) {
                     showAll();
                 }
@@ -57,23 +59,12 @@ public class TaskModelImpl implements TaskModel {
         new BaseTaskApi.Update(activity, action, id) {
             @Override
             public void onFailure(Call<Task> call, Throwable t) {
-                //
+                super.onFailure(call, t);
             }
 
             @Override
             public void onSuccess(Response<Task> response) {
-                realm.beginTransaction();
-                Task task = response.body();
-
-                if( task.isClosed() ) {
-                    RealmResults<Task> result = realm.where(Task.class).equalTo("id", task.getId()).findAll();
-                    result.deleteAllFromRealm();
-                } else {
-                    realm.insertOrUpdate(response.body());
-                }
-                realm.commitTransaction();
-
-                showAll();
+                all();
             }
         };
     }

@@ -23,46 +23,13 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.thomazmarcos.runrunittest", appContext.getPackageName());
-    }
-
-    @Test
-    public void testGetTasks() throws Exception {
-
-
-//        List tasks = Mockito.mock(ArrayList.class);
-//
-//        Task t1 = new Task();
-//        t1.setId(1L);
-//        t1.setIs_working_on(false);
-//
-//        tasks.add(t1);
-//
-//        Task t2 = new Task();
-//        t2.setId(2L);
-//        t2.setIs_working_on(true);
-//
-//        tasks.add(t2);
-//
-//        assertEquals(2, tasks.size());
-//
-//        assertEquals(1L, (long) ((Task) tasks.get(0)).getId());
-
-//        List mockedList = Mockito.mock(List.class);
-//
-//// using mock object - it does not throw any "unexpected interaction" exception
-//        mockedList.add("one");
-//        mockedList.clear();
-//
-//// selective, explicit, highly readable verification
-//        Mockito.verify(mockedList).add("one");
-//        Mockito.verify(mockedList).clear();
-
     }
 
 }

@@ -88,11 +88,11 @@ abstract class SuccessCallback<T> extends BaseCallBack<T> implements Callback<T>
 
     @Override
     public void onFailure(Response<T> response) {
-        /*try {
-            Toast.makeText(activity, response.errorBody().string(), Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        //
     }
 
+    @Override
+    public void onFailure(Call<T> call, Throwable t) {
+        if( dialog != null ) dialog.dismiss();
+    }
 }
